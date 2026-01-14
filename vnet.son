@@ -1,0 +1,67 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "type": "string"
+        },
+        "virtualNetworkName": {
+            "type": "string",
+            "metadata": {
+                "description": "VNet name"
+            }
+        },
+        "vnetAddressPrefix": {
+            "type": "string",
+            "metadata": {
+                "description": "VNet address prefix"
+            }
+        },
+        "subnet": {
+            "type": "array",
+            "metadata": {
+                "description": "List of subnet objects conatining name & prefix"
+            }
+        },
+        "networkSecurityGroupName": {
+            "type": "String",
+            "metadata": {
+                "description": "This parameter defines the name of the Network Security Group"
+            }
+        }
+    },
+    "variables": {
+        "networkSecurityGroupID": "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroupName'))]"
+    },
+    "resources": [
+        {
+            "type": "Microsoft.Network/virtualNetworks",
+            "apiVersion": "2022-07-01",
+            "name": "[parameters('virtualNetworkName')]",
+            "location": "[parameters('location')]",
+            "properties": {
+                "addressSpace": {
+                    "addressPrefixes": [
+                        "[parameters('vnetAddressPrefix')]"
+                    ]
+                },
+                "copy": [
+                    {
+                        "name": "subnets",
+                        "count": "[length(parameters('subnet'))]",
+                        "input": {
+                            "name": "[parameters('subnet')[copyIndex('subnets')]['subnetName']]",
+                            "properties": {
+                                "networkSecurityGroup": {
+                                    "id": "[variables('networkSecurityGroupID')]"
+                                },
+                                "addressPrefix": "[parameters('subnet')[copyIndex('subnets')]['subnetPrefix']]",
+                                "privateEndpointNetworkPolicies": "Enabled"
+                            }
+                        }
+                    }
+                ]
+            }
+        }
+    ]
+}
