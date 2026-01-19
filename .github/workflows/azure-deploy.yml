@@ -23,9 +23,10 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      - name: Deploy ARM template with YAML parameters
+      - name: Deploy ARM template
         run: |
-          az deployment sub create \
-            --location $LOCATION \
-            --template-file $TEMPLATE_FILE \
-            --parameters @$PARAMETERS_FILE
+          az deployment group create \
+            --resource-group rg-demo-pip \
+            --template-file AzureDeploy.json \
+            --parameters @Variables.json
+
