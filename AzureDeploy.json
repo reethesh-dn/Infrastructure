@@ -6,7 +6,8 @@
       "type": "string",
       "metadata" : {
         "description": "Define resourceGroup Name"
-      }    
+      }
+    },    
     "location": {
       "type": "string",
       "metadata" : {
