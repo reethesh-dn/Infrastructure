@@ -4,19 +4,27 @@
   "parameters": {
     "resourceGroupName": {
       "type": "string",
-      "defaultValue": "myResourceGroup"
+      "metadata" : {
+        "description": "Define resource group name"
+      }
     },
     "location": {
       "type": "string",
-      "defaultValue": "eastus"
+      "metadata" : {
+        "description": "Define location"
+      }      
     },
     "storageAccountName": {
       "type": "string",
-      "defaultValue": "mystorageacct123"
+      "metadata" : {
+        "description": "Define storage account name"
+      }
     },
     "vnetName": {
       "type": "string",
-      "defaultValue": "myVnet"
+      "metadata" : {
+        "description": "Define vnet name"
+      }
     },
     "addressPrefix": {
       "type": "string",
