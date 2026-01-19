@@ -5,11 +5,17 @@ on:
     branches:
       - main
 
+env:
+  LOCATION: eastus
+  TEMPLATE_FILE: AzureDeploy.json
+  PARAMETERS_FILE: Variables.yaml
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v2
 
       - name: Log in to Azure
@@ -17,8 +23,9 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      - name: Deploy ARM template
+      - name: Deploy ARM template with YAML parameters
         run: |
           az deployment sub create \
-            --location eastus \
-            --template-file AzureDeploy.json
+            --location $LOCATION \
+            --template-file $TEMPLATE_FILE \
+            --parameters @$PARAMETERS_FILE
