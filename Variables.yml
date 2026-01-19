@@ -1,1 +1,4 @@
-ResourceGroup
+resourceGroupName = 'rg-demo-pip'
+storageAccountName = 'sg-demo-pip'
+vnetName = 'pip-vnet'
+location = 'eastus'
