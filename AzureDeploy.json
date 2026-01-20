@@ -60,7 +60,7 @@
         "name": "Standard_LRS"
       },
       "kind": "StorageV2",
-      "properies": {
+      "properties": {
         "isHnsEnabled": true
       }
     }
