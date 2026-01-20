@@ -59,7 +59,10 @@
       "sku": {
         "name": "Standard_LRS"
       },
-      "kind": "StorageV2"
+      "kind": "StorageV2",
+      "properies": {
+        "isHnsEnabled": true
+      }
     }
   ]
 }
